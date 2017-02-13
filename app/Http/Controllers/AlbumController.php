@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Album;
 use App\Artist;
+use App\Image;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -25,15 +26,19 @@ class AlbumController extends Controller
 
       $data = json_decode(file_get_contents($url), true);
 
-      //dd($data);
-
-      $album = new Album;
+      $album = Album::firstOrNew(['id' => $data['id']]);
 
       $album->fill($data);
 
       $album->save();
 
+      foreach ($data['images'] as $image) {
 
+        $newImage = Image::firstOrNew($image);
+
+        $album->images()->save($newImage);
+      }
+      
       foreach ($data['artists'] as $artist) {
 
         unset($artist['external_urls']);
