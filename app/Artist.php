@@ -16,6 +16,11 @@ class Artist extends Model
       'id'
     ];
 
+    public function albums()
+    {
+      return $this->belongsToMany('App\Album');
+    }
+
     public function external_url()
     {
       return $this->hasOne('App\ExternalURL', 'artist_id', 'artist_id');

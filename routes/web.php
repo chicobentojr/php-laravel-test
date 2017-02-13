@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('artists', 'ArtistController');
+
+Route::resource('albums', 'AlbumController');

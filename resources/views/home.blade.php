@@ -9,6 +9,12 @@
 
                 <div class="panel-body">
                     You are logged in!
+                    <br />
+                    <a href="/albums">Albums</a>
+                    <br />
+                    <a href="/artists">Artists</a>
+                    <br />
+                    <a href="/tracks">Tracks</a>
                 </div>
             </div>
         </div>

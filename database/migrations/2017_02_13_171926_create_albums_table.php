@@ -16,10 +16,8 @@ class CreateAlbumsTable extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('album_id');
             $table->string('album_type');
-            $table->json('available_markets');
-            $table->integer('external_url_id');
             $table->string('href');
-            $table->integer('id');
+            $table->string('id');
             $table->string('name');
             $table->string('type')->default('album');
             $table->string('uri');
