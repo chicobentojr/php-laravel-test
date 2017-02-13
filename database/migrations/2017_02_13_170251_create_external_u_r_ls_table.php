@@ -15,6 +15,7 @@ class CreateExternalURLsTable extends Migration
     {
         Schema::create('external_u_r_ls', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('artist_id');
             $table->string('key');
             $table->string('value');
             $table->timestamps();
