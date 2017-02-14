@@ -17,4 +17,9 @@ class Image extends Model
     {
       return $this->belongsTo('App\Album', 'id', 'external_id');
     }
+
+    public function artist()
+    {
+      return $this->belongsTo('App\Artist', 'id', 'external_id');
+    }
 }

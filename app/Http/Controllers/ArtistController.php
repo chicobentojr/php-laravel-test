@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
+use App\Image;
 use App\ExternalURL;
 use Illuminate\Http\Request;
 
@@ -36,23 +37,30 @@ class ArtistController extends Controller
         $data = json_decode(file_get_contents($url), true);
 
         $artist = new Artist;
-        $external_url = new ExternalURL;
+
+        $artist = Artist::firstOrNew(['id' => $data['id']]);
+
+        foreach ($data['images'] as $image) {
+
+          $newImage = Image::firstOrNew($image);
+
+          $artist->images()->save($newImage);
+        }
+
+        $key = key((array)$data['external_urls']);
+        $value = current((array)$data['external_urls']);
+
+        $external_url = ExternalURL::firstOrNew(['external_id' => $artist->id]);
 
         $artist->fill($data);
 
-        //dd($data);
-
-        $external_url->key = key((array)$data['external_urls']);
-        $external_url->value = current((array)$data['external_urls']);
+        $external_url->key = $key;
+        $external_url->value = $value;
 
         $artist->save();
-
         $artist->external_url()->save($external_url);
 
-
-        dd($artist, $external_url);
-
-        return $artist->toJson();
+        return $artist;
     }
 
     /**

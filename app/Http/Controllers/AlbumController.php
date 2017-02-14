@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Album;
 use App\Artist;
 use App\Image;
+use App\ExternalURL;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -38,15 +39,30 @@ class AlbumController extends Controller
 
         $album->images()->save($newImage);
       }
-      
+
       foreach ($data['artists'] as $artist) {
 
         unset($artist['external_urls']);
 
-        $newArtist = Artist::firstOrNew($artist);
+        $newArtist = Artist::firstOrNew(['id' => $artist['id']]);
 
-        $album->artists()->save($newArtist);
+        if (!$newArtist->exists) {
+
+          $newArtist->fill($artist);
+
+          $album->artists()->save($newArtist);
+        }
       }
+
+      $key = key((array)$data['external_urls']);
+      $value = current((array)$data['external_urls']);
+
+      $external_url = ExternalURL::firstOrNew(['external_id' => $album->id]);
+
+      $external_url->key = $key;
+      $external_url->value = $value;
+
+      $album->external_url()->save($external_url);
 
       return $album;
     }

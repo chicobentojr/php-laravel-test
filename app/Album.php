@@ -26,4 +26,9 @@ class Album extends Model
     {
       return $this->hasMany('App\Image', 'external_id', 'id');
     }
+
+    public function external_url()
+    {
+      return $this->hasOne('App\ExternalURL', 'external_id', 'id');
+    }
 }
