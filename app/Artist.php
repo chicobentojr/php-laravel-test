@@ -26,8 +26,43 @@ class Artist extends Model
       return $this->hasMany('App\Image', 'external_id', 'id');
     }
 
+    public function users()
+    {
+      return $this->belongsToMany('App\User');
+    }
+
     public function external_url()
     {
       return $this->hasOne('App\ExternalURL', 'external_id', 'id');
+    }
+
+    public static function getFromAPI($id)
+    {
+      $url = config('api.spotify.artist').$id;
+      $data = json_decode(file_get_contents($url), true);
+
+      $artist = new Artist;
+      $artist = Artist::firstOrNew(['id' => $data['id']]);
+
+      if (!$artist->exists)
+      {
+        $artist->fill($data);
+        $artist->save();
+
+        foreach ($data['images'] as $image) {
+          $newImage = Image::firstOrNew($image);
+          $artist->images()->save($newImage);
+        }
+
+        $external_url = ExternalURL::firstOrNew(['external_id' => $artist->id]);
+        $key = key((array)$data['external_urls']);
+        $value = current((array)$data['external_urls']);
+        $external_url->key = $key;
+        $external_url->value = $value;
+
+        $artist->external_url()->save($external_url);
+      }
+
+      return $artist;
     }
 }

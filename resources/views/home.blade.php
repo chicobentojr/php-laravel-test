@@ -8,15 +8,8 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
-                    <br />
-                    <a href="/albums">Albums</a>
-                    <br />
-                    <a href="/artists">Artists</a>
-                    <br />
-                    <a href="/tracks">Tracks</a>
-                    <br>
-                    {{ Auth::user()->name }}
+                    You are logged in, {{ Auth::user()->name }}! <br>
+                    This will be the Search page!
                 </div>
             </div>
         </div>

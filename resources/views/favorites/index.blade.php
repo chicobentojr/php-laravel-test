@@ -5,18 +5,16 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Favorites</div>
 
                 <div class="panel-body">
-                    FAVORITES
+                    <a href="{{route('favorites.artists')}}">Artists</a>
+                    <br />
+                    <a href="{{route('favorites.albums')}}">Albums</a>
+                    <br />
+                    <a href="{{route('favorites.tracks')}}">Tracks</a>
+                    <br>
                 </div>
-                <ul>
-                  @forelse ($tracks as $track)
-                    <li>{{ $track->name }}</li>
-                  @empty
-                    <li> Favorite no found! </li>
-                  @endforelse
-                </ul>
             </div>
         </div>
     </div>

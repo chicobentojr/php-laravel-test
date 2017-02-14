@@ -23,48 +23,7 @@ class AlbumController extends Controller
 
     public function create()
     {
-      $url = 'https://api.spotify.com/v1/albums/0sNOF9WDwhWunNAHPD3Baj';
-
-      $data = json_decode(file_get_contents($url), true);
-
-      $album = Album::firstOrNew(['id' => $data['id']]);
-
-      $album->fill($data);
-
-      $album->save();
-
-      foreach ($data['images'] as $image) {
-
-        $newImage = Image::firstOrNew($image);
-
-        $album->images()->save($newImage);
-      }
-
-      foreach ($data['artists'] as $artist) {
-
-        unset($artist['external_urls']);
-
-        $newArtist = Artist::firstOrNew(['id' => $artist['id']]);
-
-        if (!$newArtist->exists) {
-
-          $newArtist->fill($artist);
-
-          $album->artists()->save($newArtist);
-        }
-      }
-
-      $key = key((array)$data['external_urls']);
-      $value = current((array)$data['external_urls']);
-
-      $external_url = ExternalURL::firstOrNew(['external_id' => $album->id]);
-
-      $external_url->key = $key;
-      $external_url->value = $value;
-
-      $album->external_url()->save($external_url);
-
-      return $album;
+        
     }
 
     public function store(Request $request)

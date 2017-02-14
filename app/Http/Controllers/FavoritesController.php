@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Track;
 use App\Artist;
+use App\Album;
+use App\Track;
 use App\ExternalURL;
+use App\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -17,54 +19,57 @@ class FavoritesController extends Controller
 
     public function index()
     {
-
-      return view('favorites.index', ['tracks' => Auth::user()->tracks()->get()]);
+      return view('favorites.index');
     }
 
-    public function newTrack($id)
+    public function artists()
     {
+      return view('favorites.artists', ['artists' => Auth::user()->artists()->get()]);
+    }
 
-      $url = 'https://api.spotify.com/v1/tracks/'.$id;
+    public function albums()
+    {
+      return view('favorites.albums', ['albums' => Auth::user()->albums()->get()]);
+    }
 
-      $data = json_decode(file_get_contents($url), true);
+    public function tracks()
+    {
+      return view('favorites.tracks', ['tracks' => Auth::user()->tracks()->get()]);
+    }
 
-      $track = Track::firstOrNew(['id' => $data['id']]);
+    public function saveArtist($id)
+    {
+      $artist = Artist::getFromAPI($id);
+      $user = Auth::user();
 
-      $track->fill($data);
-
-      $track->save();
-
-      foreach ($data['artists'] as $artist) {
-
-        unset($artist['external_urls']);
-
-        $newArtist = Artist::firstOrNew(['id' => $artist['id']]);
-
-        if (!$newArtist->exists) {
-
-          $newArtist->fill($artist);
-
-          $track->artists()->save($newArtist);
-        }
+      if (!$user->artists()->get()->contains($artist->artist_id)) {
+        $user->artists()->save($artist);
       }
 
-      $key = key((array)$data['external_urls']);
-      $value = current((array)$data['external_urls']);
+      return redirect()->route('favorites.artists');
+    }
 
-      $external_url = ExternalURL::firstOrNew(['external_id' => $track->id]);
+    public function saveAlbum($id)
+    {
+      $album = Album::getFromAPI($id);
+      $user = Auth::user();
 
-      $external_url->key = $key;
-      $external_url->value = $value;
+      if (!$user->albums()->get()->contains($album->album_id)) {
+        $user->albums()->save($album);
+      }
 
-      $track->external_url()->save($external_url);
+      return redirect()->route('favorites.albums');
+    }
 
+    public function saveTrack($id)
+    {
+      $track = Track::getFromAPI($id);
       $user = Auth::user();
 
       if (!$user->tracks()->get()->contains($track->track_id)) {
         $user->tracks()->save($track);
       }
 
-
-      return $this->index();
+      return redirect()->route('favorites.tracks');
     }
 }

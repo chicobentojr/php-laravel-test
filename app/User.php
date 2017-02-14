@@ -27,6 +27,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function artists()
+    {
+      return $this->belongsToMany('App\Artist', 'user_artists', 'user_id', 'artist_id');
+    }
+
+    public function albums()
+    {
+      return $this->belongsToMany('App\Album', 'user_albums', 'user_id', 'album_id');
+    }
+
     public function tracks()
     {
       return $this->belongsToMany('App\Track', 'user_tracks', 'user_id', 'track_id');
