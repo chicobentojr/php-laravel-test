@@ -26,6 +26,11 @@ class Track extends Model
     return $this->belongsToMany('App\Artist', 'track_artists', 'track_id', 'artist_id');
   }
 
+  public function users()
+  {
+    return $this->belongsToMany('App\User');
+  }
+
   public function external_url()
   {
     return $this->hasOne('App\ExternalURL', 'external_id', 'id');

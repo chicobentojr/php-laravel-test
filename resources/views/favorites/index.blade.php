@@ -8,16 +8,15 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
-                    <br />
-                    <a href="/albums">Albums</a>
-                    <br />
-                    <a href="/artists">Artists</a>
-                    <br />
-                    <a href="/tracks">Tracks</a>
-                    <br>
-                    {{ Auth::user()->name }}
+                    FAVORITES
                 </div>
+                <ul>
+                  @forelse ($tracks as $track)
+                    <li>{{ $track->name }}</li>
+                  @empty
+                    <li> Favorite no found! </li>
+                  @endforelse
+                </ul>
             </div>
         </div>
     </div>

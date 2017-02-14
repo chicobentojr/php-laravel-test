@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index');
 Route::resource('artists', 'ArtistController');
 Route::resource('albums', 'AlbumController');
 Route::resource('tracks', 'TrackController');
+
+Route::get('/favorites', 'FavoritesController@index');
+Route::get('/favorites/tracks/new/{id}', 'FavoritesController@newTrack');

@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function tracks()
+    {
+      return $this->belongsToMany('App\Track', 'user_tracks', 'user_id', 'track_id');
+    }
 }
