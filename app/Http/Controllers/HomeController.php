@@ -25,4 +25,18 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function search(Request $request)
+    {
+      $query = $request->input('query');
+      $type = $request->input('type');
+
+      $url = config('api.spotify.search').'?'.http_build_query(['q'=>$query, 'type'=>$type]);
+
+      $data = json_decode(file_get_contents($url), true);
+
+      $results = $data[$type.'s']['items'];
+
+      return view('results', compact('results', 'query', 'type'));
+    }
 }

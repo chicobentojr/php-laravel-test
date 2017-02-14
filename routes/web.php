@@ -18,15 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-
-Route::resource('artists', 'ArtistController');
-Route::resource('albums', 'AlbumController');
-Route::resource('tracks', 'TrackController');
+Route::get('/results', 'HomeController@search')->name('results');
 
 Route::get('/favorites', 'FavoritesController@index')->name('favorites');
 Route::get('/favorites/artists', 'FavoritesController@artists')->name('favorites.artists');
 Route::get('/favorites/albums', 'FavoritesController@albums')->name('favorites.albums');
 Route::get('/favorites/tracks', 'FavoritesController@tracks')->name('favorites.tracks');
-Route::get('/favorites/tracks/save/{id}', 'FavoritesController@saveTrack');
-Route::get('/favorites/artists/save/{id}', 'FavoritesController@saveArtist');
-Route::get('/favorites/albums/save/{id}', 'FavoritesController@saveAlbum');
+Route::get('/favorites/tracks/save/{id}', 'FavoritesController@saveTrack')->name('save.track');
+Route::get('/favorites/artists/save/{id}', 'FavoritesController@saveArtist')->name('save.artist');
+Route::get('/favorites/albums/save/{id}', 'FavoritesController@saveAlbum')->name('save.album');

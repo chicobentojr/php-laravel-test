@@ -8,11 +8,21 @@
                 <div class="panel-heading">
                   <a href="{{route('favorites')}}">Favorites</a> > Tracks
                 </div>
-
                 <div class="panel-body">
                   <ul>
                     @forelse ($tracks as $track)
-                      <li>{{ $track->name }}</li>
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            {{-- <img width="100" height="100" class="media-object" src="{{ $track->artists()->first()->images()->first()->url }}"> --}}
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><b>{{ $track->name }}</b></h4>
+                          {{-- <h5>{{ $item['album']['name']}}</h4> --}}
+                          {{-- <h6>{{ $track->artists()->first()->name }}</h4> --}}
+                        </div>
+                      </div>
                     @empty
                       <li> Favorite no found! </li>
                     @endforelse
