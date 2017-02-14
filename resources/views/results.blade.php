@@ -25,7 +25,7 @@
                         </div>
                       </div>
                   @empty
-                    <li>No result found!</li>
+                    <li>No results found!</li>
                   @endforelse
                 @elseif ($type == 'artist')
                   @forelse ($results as $item)
@@ -60,10 +60,10 @@
                       </div>
                     </div>
                   @empty
-                    <li>No result found!</li>
+                    <li>No results found!</li>
                   @endforelse
                 @else
-                  <li>No result found!</li>
+                  <li>No results found!</li>
                 @endif
               </div>
             </div>

@@ -31,6 +31,11 @@ class Track extends Model
     return $this->belongsToMany('App\User');
   }
 
+  public function album()
+  {
+    return $this->belongsTo('App\Album', 'album_id', 'album_id');
+  }
+
   public function external_url()
   {
     return $this->hasOne('App\ExternalURL', 'external_id', 'id');
@@ -46,6 +51,16 @@ class Track extends Model
     if (!$track->exists)
     {
       $track->fill($data);
+
+      $album = $data['album'];
+      $newAlbum = Album::firstOrNew(['id' => $album['id']]);
+      if (!$newAlbum->exists) {
+        $newAlbum->fill($album);
+        $newAlbum->save();
+      }
+
+      $album = $newAlbum;
+      $album->tracks()->save($track);
       $track->save();
 
       foreach ($data['artists'] as $artist) {
@@ -55,6 +70,11 @@ class Track extends Model
           $newArtist->fill($artist);
           $track->artists()->save($newArtist);
         }
+      }
+
+      foreach ($data['album']['images'] as $image) {
+        $newImage = Image::firstOrNew($image);
+        $album->images()->save($newImage);
       }
 
       $external_url = ExternalURL::firstOrNew(['external_id' => $track->id]);

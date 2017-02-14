@@ -10,11 +10,21 @@
                 </div>
 
                 <div class="panel-body">
-                  <ul>
                     @forelse ($albums as $album)
-                      <li>{{ $album->name }}</li>
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img width="100" height="100" class="media-object" src="{{ $album->images->first()->url }}">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><b>{{ $album->name }}</b></h4>
+                          <h5>{{ $album->artists->first()->name }}</h5>
+                          <h5>{{ ucfirst($album['album_type']) }}</h4>
+                        </div>
+                      </div>
                     @empty
-                      <li> Favorite no found! </li>
+                      <li>Empty list!</li>
                     @endforelse
                   </ul>
                 </div>
