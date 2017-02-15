@@ -36,17 +36,17 @@ class Artist extends Model
       return $this->hasOne('App\ExternalURL', 'external_id', 'id');
     }
 
-    public static function getFromAPI($id)
+    public static function getFromAPI($id, $persist = true)
     {
       $url = config('api.spotify.artist').$id;
       $data = json_decode(file_get_contents($url), true);
 
       $artist = new Artist;
       $artist = Artist::firstOrNew(['id' => $data['id']]);
-
-      if (!$artist->exists)
+      $artist->fill($data);
+      
+      if ($persist && !$artist->exists)
       {
-        $artist->fill($data);
         $artist->save();
 
         foreach ($data['images'] as $image) {

@@ -42,16 +42,16 @@ class Album extends Model
       return $this->hasOne('App\ExternalURL', 'external_id', 'id');
     }
 
-    public static function getFromAPI($id)
+    public static function getFromAPI($id, $persist = true)
     {
       $url = config('api.spotify.album').$id;
       $data = json_decode(file_get_contents($url), true);
 
       $album = Album::firstOrNew(['id' => $data['id']]);
+      $album->fill($data);
 
-      if (!$album->exists)
+      if ($persist && !$album->exists)
       {
-        $album->fill($data);
         $album->save();
 
         foreach ($data['images'] as $image) {
@@ -62,7 +62,7 @@ class Album extends Model
         foreach ($data['artists'] as $artist) {
           unset($artist['external_urls']);
           $newArtist = Artist::firstOrNew(['id' => $artist['id']]);
-          
+
           if (!$newArtist->exists) {
             $newArtist->fill($artist);
           }

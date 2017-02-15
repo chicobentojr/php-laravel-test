@@ -21,7 +21,8 @@
                           <h4 class="media-heading"><b>{{ $item['name']}}</b></h4>
                           <h5>{{ $item['album']['name']}}</h4>
                           <h6>{{ $item['artists'][0]['name']}}</h4>
-                          <a href="{{ route('save.track',['id'=>$item['id']])}}">Favorite</a>
+                          <a href="{{ route('save.track',['id'=>$item['id']])}}">Favorite</a> |
+                          <a href="{{ route('xml.download',['id'=>$item['id'],'type'=>$item['type']])}}">Download XML</a>
                         </div>
                       </div>
                   @empty
@@ -38,7 +39,8 @@
                         <div class="media-body">
                           <h4 class="media-heading"><b>{{ $item['name']}}</b></h4>
                           <h5>Popularity: {{ $item['popularity'] }}</h4>
-                          <a href="{{ route('save.artist',['id'=>$item['id']])}}">Favorite</a>
+                          <a href="{{ route('save.artist',['id'=>$item['id']])}}">Favorite</a> |
+                          <a href="{{ route('xml.download',['id'=>$item['id'],'type'=>$item['type']])}}">Download XML</a>
                         </div>
                       </div>
                   @empty
@@ -56,7 +58,8 @@
                         <h4 class="media-heading"><b>{{ $item['name']}}</b></h4>
                         <h5>{{ $item['artists'][0]['name']}}</h5>
                         <h5>{{ ucfirst($item['album_type']) }}</h4>
-                        <a href="{{ route('save.album',['id'=>$item['id']])}}">Favorite</a>
+                        <a href="{{ route('save.album',['id'=>$item['id']])}}">Favorite</a> |
+                        <a href="{{ route('xml.download',['id'=>$item['id'],'type'=>$item['type']])}}">Download XML</a>
                       </div>
                     </div>
                   @empty

@@ -41,17 +41,16 @@ class Track extends Model
     return $this->hasOne('App\ExternalURL', 'external_id', 'id');
   }
 
-  public static function getFromAPI($id)
+  public static function getFromAPI($id, $persist = true)
   {
     $url = config('api.spotify.track').$id;
     $data = json_decode(file_get_contents($url), true);
 
     $track = Track::firstOrNew(['id' => $data['id']]);
+    $track->fill($data);
 
-    if (!$track->exists)
+    if ($persist && !$track->exists)
     {
-      $track->fill($data);
-
       $album = $data['album'];
       $newAlbum = Album::firstOrNew(['id' => $album['id']]);
       if (!$newAlbum->exists) {

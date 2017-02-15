@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/results', 'HomeController@search')->name('results');
 
 Route::get('/favorites', 'FavoritesController@index')->name('favorites');
@@ -27,3 +27,7 @@ Route::get('/favorites/tracks', 'FavoritesController@tracks')->name('favorites.t
 Route::get('/favorites/tracks/save/{id}', 'FavoritesController@saveTrack')->name('save.track');
 Route::get('/favorites/artists/save/{id}', 'FavoritesController@saveArtist')->name('save.artist');
 Route::get('/favorites/albums/save/{id}', 'FavoritesController@saveAlbum')->name('save.album');
+
+Route::get('/upload', 'XMLController@index')->name('xml');
+Route::post('/upload', 'XMLController@upload')->name('xml.upload');
+Route::get('/download/{type}/{id}', 'XMLController@download')->name('xml.download');

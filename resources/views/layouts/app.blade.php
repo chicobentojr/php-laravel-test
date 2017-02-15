@@ -36,8 +36,9 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}"> {{ config('app.name', 'Laravel') }} </a>
-                    <a class="navbar-brand" href="{{ url('/home') }}"> Home </a>
-                    <a class="navbar-brand" href="{{ url('/favorites') }}"> Favorites </a>
+                    <a class="navbar-brand" href="{{ route('home') }}"> Home </a>
+                    <a class="navbar-brand" href="{{ route('favorites') }}"> Favorites </a>
+                    <a class="navbar-brand" href="{{ route('xml') }}"> Upload </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
