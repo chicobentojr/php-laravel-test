@@ -22,7 +22,7 @@
                         <div class="input-group">
                           <input id="query" type="text" name="query" class="form-control">
                           <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">Go!</button>
+                            <button class="btn btn-primary" type="submit">Search</button>
                           </span>
                         </div>
                       </div>

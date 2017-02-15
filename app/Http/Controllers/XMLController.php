@@ -67,7 +67,7 @@ class XMLController extends Controller
         return redirect()->route('save.'.$type, ['id'=>$array['id']]);
       }
 
-      return redirect()->route('xml');
+      return redirect()->route('xml')->with('error', 'Error on uploading file!');
     }
 
     public static function array_to_xml(array $arr, SimpleXMLElement $xml)
