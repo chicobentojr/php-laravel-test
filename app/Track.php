@@ -52,23 +52,15 @@ class Track extends Model
     if ($persist && !$track->exists)
     {
       $album = $data['album'];
-      $newAlbum = Album::firstOrNew(['id' => $album['id']]);
-      if (!$newAlbum->exists) {
-        $newAlbum->fill($album);
-        $newAlbum->save();
-      }
-
+      $newAlbum = Album::getFromAPI($album['id']);
       $album = $newAlbum;
       $album->tracks()->save($track);
       $track->save();
 
       foreach ($data['artists'] as $artist) {
         unset($artist['external_urls']);
-        $newArtist = Artist::firstOrNew(['id' => $artist['id']]);
-        if (!$newArtist->exists) {
-          $newArtist->fill($artist);
-          $track->artists()->save($newArtist);
-        }
+        $newArtist = Artist::getFromAPI($artist['id']);
+        $track->artists()->save($newArtist);
       }
 
       foreach ($data['album']['images'] as $image) {

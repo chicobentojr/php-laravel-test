@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/results', 'HomeController@search')->name('results');
+Route::get('/search', 'SearchController@index')->name('search');
+Route::post('/search', 'SearchController@search')->name('search.post');
 
 Route::get('/favorites', 'FavoritesController@index')->name('favorites');
 Route::get('/favorites/artists', 'FavoritesController@artists')->name('favorites.artists');

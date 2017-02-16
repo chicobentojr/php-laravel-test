@@ -25,6 +25,7 @@
                   @empty
                     <li>Empty list!</li>
                   @endforelse
+                  {{ $artists->links() }}
                 </div>
             </div>
         </div>

@@ -24,17 +24,17 @@ class FavoritesController extends Controller
 
     public function artists()
     {
-      return view('favorites.artists', ['artists' => Auth::user()->artists()->orderBy('created_at','desc')->get()]);
+      return view('favorites.artists', ['artists' => Auth::user()->artists()->orderBy('created_at','desc')->paginate(5)]);
     }
 
     public function albums()
     {
-      return view('favorites.albums', ['albums' => Auth::user()->albums()->orderBy('created_at','desc')->get()]);
+      return view('favorites.albums', ['albums' => Auth::user()->albums()->orderBy('created_at','desc')->paginate(5)]);
     }
 
     public function tracks()
     {
-      return view('favorites.tracks', ['tracks' => Auth::user()->tracks()->orderBy('created_at','desc')->get()]);
+      return view('favorites.tracks', ['tracks' => Auth::user()->tracks()->orderBy('created_at','desc')->paginate(5)]);
     }
 
     public function saveArtist($id)

@@ -14,7 +14,7 @@
                       <div class="media">
                         <div class="media-left">
                           <a href="#">
-                            <img width="100" height="100" class="media-object" src="{{ $album->images->first()->url }}">
+                            <img width="100" height="100" class="media-object" src="{{ $album->images->first()->url or '' }}">
                           </a>
                         </div>
                         <div class="media-body">
@@ -26,6 +26,7 @@
                     @empty
                       <li>Empty list!</li>
                     @endforelse
+                    {{ $albums->links() }}
                   </ul>
                 </div>
             </div>

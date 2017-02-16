@@ -18,7 +18,7 @@ class Artist extends Model
 
     public function albums()
     {
-      return $this->belongsToMany('App\Album');
+      return $this->belongsToMany('App\Album', 'album_artists', 'album_id', 'artist_id');
     }
 
     public function images()
@@ -44,7 +44,7 @@ class Artist extends Model
       $artist = new Artist;
       $artist = Artist::firstOrNew(['id' => $data['id']]);
       $artist->fill($data);
-      
+
       if ($persist && !$artist->exists)
       {
         $artist->save();

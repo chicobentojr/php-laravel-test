@@ -19,7 +19,7 @@ class Album extends Model
 
     public function artists()
     {
-      return $this->belongsToMany('App\Artist', 'album_artists', 'album_id', 'artist_id');
+      return $this->belongsToMany('App\Artist', 'album_artists', 'artist_id', 'album_id');
     }
 
     public function images()
@@ -54,19 +54,18 @@ class Album extends Model
       {
         $album->save();
 
-        foreach ($data['images'] as $image) {
-          $newImage = Image::firstOrNew($image);
-          $album->images()->save($newImage);
-        }
-
         foreach ($data['artists'] as $artist) {
           unset($artist['external_urls']);
-          $newArtist = Artist::firstOrNew(['id' => $artist['id']]);
-
-          if (!$newArtist->exists) {
-            $newArtist->fill($artist);
-          }
+          $newArtist = Artist::getFromAPI($artist['id']);
           $album->artists()->save($newArtist);
+        }
+
+        foreach ($data['images'] as $image) {
+          $newImage = Image::firstOrNew($image);
+          if (!$newImage->exists)
+          {
+            $album->images()->save($newImage);
+          }
         }
 
         $external_url = ExternalURL::firstOrNew(['external_id' => $album->id]);

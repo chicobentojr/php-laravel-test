@@ -25,6 +25,7 @@
                     @empty
                       <li> Favorites no found! </li>
                     @endforelse
+                    {{ $tracks->links() }}
                 </div>
             </div>
         </div>
