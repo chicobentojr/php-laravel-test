@@ -3,7 +3,7 @@
 @verbatim
 <div class="container" ng-app="mySpotify" ng-controller="chartsController as vm">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-10 col-md-offset-1">
       <div class="panel panel-default">
         <div class="panel-heading">Charts</div>
         <div class="panel-body">
@@ -21,33 +21,38 @@
             </form>
         </div>
 			</div>
-			<div class="col-md-6">
-				<div ng-if="vm.results" class="panel panel-default">
-					<div class="panel-heading">
-						Results for "{{ vm.query }}" at "Artist"
-					</div>
-					<div class="panel-body">
-						<div ng-repeat="item in vm.results" class="media">
-							<div class="media-left">
-								<a href="#">
-									<img width="100" height="100" class="media-object" src="{{item.images[0].url}}">
-								</a>
-							</div>
-							<div class="media-body">
-								<h4 class="media-heading"><a href="#" ng-click="vm.selectItem(item)">{{ item.name }}</a></h4>
-								<h5>Popularity: {{ item.popularity }}</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div ng-if="vm.selectedItem" class="panel panel-default">
-					<div class="panel-heading">
-						{{ vm.selectedItem.name }} Selected!
-					</div>
-				</div>
-			</div>
+      <div class="row">
+  			<div class="col-md-4">
+  				<div ng-if="vm.artists" class="panel panel-default">
+  					<div class="panel-heading">
+  						Results for "{{ vm.query }}" at "Artist"
+  					</div>
+  					<div class="panel-body">
+  						<div ng-repeat="artist in vm.artists" class="media">
+  							<div class="media-left">
+  								<a href="#">
+  									<img width="100" height="100" class="media-object" src="{{artist.images[0].url}}">
+  								</a>
+  							</div>
+  							<div class="media-body">
+  								<h4 class="media-heading"><a href="#" ng-click="vm.selectArtist(artist)">{{ artist.name }}</a></h4>
+  								<h5>Popularity: {{ artist.popularity }}</h4>
+  							</div>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="col-md-8">
+  				<div ng-show="vm.chartLoaded" class="panel panel-default">
+            <div class="panel-heading">
+  					  	{{ vm.chartHeader }}
+  					</div>
+  					<div ng-show="vm.isChartComplete" class="panel-body">
+  						<div id="albumChart" style="min-height:400px;"></div>
+  					</div>
+  				</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
