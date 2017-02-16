@@ -1,20 +1,71 @@
+(function(){
+  'use strict';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+  angular
+    .module('mySpotify', [])
+    .controller('chartsController', function($http) {
+      let vm = this;
+      vm.search = '';
+    	vm.query = '';
+      vm.results = false;
+    	vm.loading = false;
 
-require('./bootstrap');
+    	vm.init = function() {
+    	}
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+      vm.searchClick = function() {
+        if (vm.search) {
+          vm.loading = true;
+          vm.query = vm.search;
+          vm.selectedItem = false;
+          $http.get('https://api.spotify.com/v1/search',{
+            params: {
+              q: vm.search,
+              type: 'artist'
+            }
+          }).then(function(result) {
+            vm.results = result.data.artists.items;
+            vm.loading = false;
+          }, function(erro){
+            console.log('erro');
+          });
+        }
+      }
 
-Vue.component('example', require('./components/Example.vue'));
+      vm.selectItem = function(item){
+        vm.selectedItem = item;
+      }
 
-const app = new Vue({
-    el: '#app'
-});
+    	vm.addTodo = function() {
+    	  vm.loading = true;
+        vm.todos.push({
+          title: vm.todo.title,
+          done: vm.todo.done
+        });
+        vm.todo = '';
+    	  vm.loading = false;
+    	};
+
+    	vm.updateTodo = function(todo) {
+    		vm.loading = true;
+    		let data = {
+    			title: todo.title,
+    			done: todo.done
+    		};
+        console.log(todo, data);
+    		todo = data;
+    		vm.loading = false;
+    	};
+
+    	vm.deleteTodo = function(index) {
+    		vm.loading = true;
+
+    		var todo = vm.todos[index];
+
+    		vm.todos.splice(index, 1);
+    		vm.loading = false;
+    	};
+
+    	vm.init();
+  });
+})();

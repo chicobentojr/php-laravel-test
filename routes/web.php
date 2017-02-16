@@ -31,3 +31,5 @@ Route::get('/favorites/albums/save/{id}', 'FavoritesController@saveAlbum')->name
 Route::get('/upload', 'XMLController@index')->name('xml');
 Route::post('/upload', 'XMLController@upload')->name('xml.upload');
 Route::get('/download/{type}/{id}', 'XMLController@download')->name('xml.download');
+
+Route::get('/charts', 'ChartsController@index')->name('charts');

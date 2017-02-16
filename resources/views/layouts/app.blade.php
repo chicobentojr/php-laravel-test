@@ -39,6 +39,7 @@
                     <a class="navbar-brand" href="{{ route('search') }}"> Search </a>
                     <a class="navbar-brand" href="{{ route('favorites') }}"> Favorites </a>
                     <a class="navbar-brand" href="{{ route('xml') }}"> Upload XML </a>
+                    <a class="navbar-brand" href="{{ route('charts') }}"> Charts </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -83,6 +84,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>
