@@ -23,7 +23,7 @@
                         </div>
                       </div>
                     @empty
-                      <li> Favorites no found! </li>
+                      <li>Empty list!</li>
                     @endforelse
                     {{ $tracks->links() }}
                 </div>

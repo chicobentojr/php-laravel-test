@@ -8,17 +8,17 @@
         <div class="panel-heading">Charts</div>
         <div class="panel-body">
           <p>Search any <b>Artist</b> from Spotify Api</p>
-            <form class="form-horizontal" role="form">
-                <div class="col-lg-12">
-                  <label for="query">Artist:</label>
-                  <div class="input-group">
-                    <input ng-model="vm.search" ng-change="vm.change()" type="text" class="form-control" autofocus>
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary" ng-click="vm.searchClick()">Search</button>
-                    </span>
-                  </div>
+          <form class="form-horizontal" role="form">
+              <div class="col-lg-12">
+                <label>Artist:</label>
+                <div class="input-group">
+                  <input ng-model="vm.search" ng-change="vm.change()" type="text" class="form-control" autofocus>
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" ng-click="vm.searchClick()">Search</button>
+                  </span>
                 </div>
-            </form>
+              </div>
+          </form>
         </div>
 			</div>
       <div class="row">
@@ -43,11 +43,11 @@
   				</div>
   			</div>
   			<div class="col-md-8">
-  				<div ng-show="vm.chartLoaded" class="panel panel-default">
+  				<div ng-show="vm.selectedArtist" class="panel panel-default">
             <div class="panel-heading">
   					  	{{ vm.chartHeader }}
   					</div>
-  					<div ng-show="vm.isChartComplete" class="panel-body">
+  					<div ng-hide="vm.chartError" class="panel-body">
   						<div id="albumChart" style="min-height:400px;"></div>
   					</div>
   				</div>

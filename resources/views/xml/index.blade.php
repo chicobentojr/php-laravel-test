@@ -7,7 +7,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">Upload</div>
               <div class="panel-body">
-                <p>Upload any <b>Track</b>, <b>Artist</b> or <b>Album</b> in XML format from Spotify Api</p>
+                <p>Upload any <b>Track</b>, <b>Artist</b> or <b>Album</b> in XML format from MySpotify</p>
                 @if (session('error'))
                 <div class="alert alert-danger">
                   <strong>{{ session('error') }}</strong>
