@@ -24,7 +24,7 @@ class Album extends Model
 
     public function images()
     {
-      return $this->hasMany('App\Image', 'external_id', 'id');
+      return $this->hasMany('App\AlbumImages', 'album_id','album_id');
     }
 
     public function tracks()
@@ -61,7 +61,7 @@ class Album extends Model
         }
 
         foreach ($data['images'] as $image) {
-          $newImage = Image::firstOrNew($image);
+          $newImage = AlbumImages::firstOrNew($image);
           if (!$newImage->exists)
           {
             $album->images()->save($newImage);

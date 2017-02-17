@@ -64,7 +64,7 @@ class Track extends Model
       }
 
       foreach ($data['album']['images'] as $image) {
-        $newImage = Image::firstOrNew($image);
+        $newImage = AlbumImages::firstOrNew($image);
         $album->images()->save($newImage);
       }
 

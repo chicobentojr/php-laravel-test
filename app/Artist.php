@@ -23,7 +23,7 @@ class Artist extends Model
 
     public function images()
     {
-      return $this->hasMany('App\Image', 'external_id', 'id');
+      return $this->hasMany('App\ArtistImages', 'artist_id', 'artist_id');
     }
 
     public function users()
@@ -50,7 +50,7 @@ class Artist extends Model
         $artist->save();
 
         foreach ($data['images'] as $image) {
-          $newImage = Image::firstOrNew($image);
+          $newImage = ArtistImages::firstOrNew($image);
           $artist->images()->save($newImage);
         }
 
