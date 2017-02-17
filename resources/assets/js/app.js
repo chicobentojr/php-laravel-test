@@ -6,7 +6,7 @@
     .controller('chartsController', function($http) {
 
       let vm = this;
-      vm.search = 'coldplay';
+      vm.search = '';
     	vm.query = '';
       vm.artists = false;
       vm.albums = false;
@@ -125,6 +125,5 @@
       }
 
       vm.myChart = echarts.init(document.getElementById('albumChart'));
-      vm.searchClick();
   });
 })();
